@@ -1,0 +1,160 @@
+/* --- 기본 및 폰트 설정 --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* --- (변경) 게임 컨테이너 (말풍선 기준점) --- */
+.game-container {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    
+    /* (추가) 말풍선 위치의 기준이 되도록 설정 */
+    position: relative; 
+}
+
+/* --- 알 개수 카운터 --- */
+.counter-container {
+    font-size: 2em;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+#egg-count {
+    color: #e53935;
+    font-size: 1.3em;
+    margin: 0 5px;
+}
+
+/* --- 미조 이미지 --- */
+#mijo-image {
+    max-width: 100%;
+    height: auto;
+    width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#mijo-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+#mijo-image:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* --- 알 낳는 모션 --- */
+.laying-motion {
+    animation: lay-egg-animation 0.3s ease-in-out;
+}
+
+@keyframes lay-egg-animation {
+    0% { transform: translateY(0) scale(1.03); }
+    50% { transform: translateY(15px) rotate(-2deg); }
+    100% { transform: translateY(0) scale(1.03); }
+}
+
+/* --- 알 생성 --- */
+#egg-spawn-area {
+    position: relative;
+    height: 100px;
+    overflow: hidden;
+}
+
+.egg-image {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    width: 30px;
+    height: auto;
+    animation: drop-and-fade 1s ease-out;
+}
+
+@keyframes drop-and-fade {
+    0% { transform: translate(-50%, 0); opacity: 1; }
+    100% { transform: translate(-50%, 100px); opacity: 0; }
+}
+
+/* --- (추가) 말풍선 스타일 --- */
+.speech-bubble {
+    position: absolute;
+    top: 50%; /* 컨테이너 상단 25% 위치 */
+    right: 10px; /* 컨테이너 우측 10px (패딩 고려) */
+    
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    
+    color: #333;
+    font-size: 0.9em;
+    font-weight: 600;
+    z-index: 10; /* 다른 요소보다 위에 보이게 */
+    max-width: 140px; /* 너무 길어지지 않게 */
+    
+    /* 애니메이션 적용 */
+    animation: pop-in-out 1.5s ease-out;
+}
+
+/* (추가) 말풍선 애니메이션 (나타났다가 사라짐) */
+@keyframes pop-in-out {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    20% { /* 나타나기 */
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    80% { /* 유지 */
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% { /* 사라지기 */
+        opacity: 0;
+        transform: scale(0.9) translateY(-5px);
+    }
+}
+
+/* --- 모바일 미디어 쿼리 --- */
+@media (max-width: 480px) {
+    h1 { font-size: 1.8em; }
+    .game-container { padding: 20px; }
+    .counter-container { font-size: 1.8em; }
+    
+    /* (추가) 모바일에선 말풍선 위치 조정 */
+    .speech-bubble {
+        top: 20%;
+        max-width: 120px; /* 좀 더 작게 */
+        font-size: 0.8em;
+    }
+}
